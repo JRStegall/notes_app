@@ -1,8 +1,8 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
 const dotenv = require('dotenv');
-const session = require('express-session');
 const passport = require('passport');
+const session = require('express-session');
 const connectDB = require('./config/db');
 
 const app = express();
@@ -32,6 +32,7 @@ app.use(passport.session());
 
 //ROUTES
 app.use('/',require('./routes/index'));
+app.use('/auth',require('./routes/auth'));
 
 
 
