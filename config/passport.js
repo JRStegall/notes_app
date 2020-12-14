@@ -2,6 +2,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const mongoose = require('mongoose');
 const User = require('../models/User');
 const dotenv = require('dotenv');
+const passport = require('passport');
 
 
 dotenv.config();
@@ -18,7 +19,7 @@ module.exports = function (passport) {
                 googleId : profile.id,
                 displayName : profile.displayName,
                 firstName : profile.name.givenName,
-                lastNamne : profile.name.familyName,
+                lastName : profile.name.familyName,
                 image : profile.photos[0].value
             }
             try{
@@ -46,3 +47,4 @@ module.exports = function (passport) {
         });
     });
 }
+
