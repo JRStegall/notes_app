@@ -19,7 +19,7 @@ connectDB();
 app.engine('.hbs', exphbs({defaultLayout: 'main', 'extname' : '.hbs'}));
 app.set('view engine', '.hbs');
 
-//EXPRESS MIDDLEWARE
+//EXPRESS SESSIONS MIDDLEWARE
 app.use(session({
     secret: 'keyboard cat',
     resave: false,
