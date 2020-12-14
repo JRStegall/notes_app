@@ -1,8 +1,7 @@
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const mongoose = require('mongoose');
-const User = require('../models/User');
 const dotenv = require('dotenv');
-const passport = require('passport');
+const User = require('../models/User');
 
 
 dotenv.config();
@@ -14,7 +13,6 @@ module.exports = function (passport) {
         callbackURL: "/auth/google/callback"
     },
         async (accessToken, refreshToken, profile, done) => {
-            console.log(profile);
             const newUser = {
                 googleId : profile.id,
                 displayName : profile.displayName,
@@ -46,5 +44,5 @@ module.exports = function (passport) {
             done(err, user);
         });
     });
-}
+};
 
