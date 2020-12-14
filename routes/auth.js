@@ -4,9 +4,8 @@ const router = express.Router();
 
 router.get('/google', passport.authenticate('google', { scope: ['profile'] }));
 
-router.get(
-    '/google/callback',
-    passport.authenticate('google', { failureRedirect: '/' }),
+//GET to dashboard
+router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/' }),
     (req, res) => {
         res.redirect('/dashboard');
     }
