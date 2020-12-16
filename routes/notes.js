@@ -49,4 +49,13 @@ router.put('/:id', async (req, res) => {
     }
 });
 
+router.delete('/delete/:id', async (req, res) => {
+    try {
+        await Note.deleteOne({ _id: req.params.id });
+        res.redirect('/dashboard');
+    } catch (err) {
+        console.log(err);
+    }
+});
+
 module.exports = router;
