@@ -1,11 +1,12 @@
+<div class="content">
 <h6>Hello {{name}}, here are your stories:</h6>
-
+<br>
 <table>
     <thead>
         <tr>
             <th>Title</th>
             <th>Date</th>
-            <th></th>
+            <th>Edit</th>
         </tr>
     </thead>
     <tbody>
@@ -17,10 +18,11 @@
                 <a href="/notes/edit/{{_id}}">Edit Page</a>
                 <form action="/notes/delete{{note._id}}" method="POST">
                 <input type="hidden" name="_method" value="DELETE">
-                <button type="submit">Delete Note</button>
+                {{!-- <button type="submit">Delete Note</button> --}}
                 </form>
             </td>
         </tr>
     </tbody>
     {{/each}}
 </table>
+</div>
