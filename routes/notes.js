@@ -3,16 +3,17 @@ const { ensureAuth } = require('../middleware/auth');
 const router = express.Router();
 const Note = require('../models/Note');
 
-router.get('/add', ensureAuth, (req, res)=>{
+//GET TO DASHBOARD
+router.get('/add', ensureAuth, (req, res) => {
     res.render('notes/add');
 });
 
-router.post('/add', ensureAuth, async(req,res)=>{
-    try{
+router.post('/add', ensureAuth, async (req, res) => {
+    try {
         req.body.user = req.user._id;
         const note = await Note.create(req.body);
         res.redirect('/dashboard');
-    }catch(err){
+    } catch (err) {
         console.log(err);
     }
 });
@@ -30,7 +31,7 @@ router.get('/:id', async (req, res) => {
 router.get('/edit/:id', async (req, res) => {
     try {
         const note = await Note.findById(req.params.id).lean();
-        res.render('notes/edit', {note});
+        res.render('notes/edit', { note });
     } catch (err) {
         console.log(err);
     }
@@ -43,7 +44,7 @@ router.put('/:id', async (req, res) => {
             { title: req.body.title, body: req.body.body }
         )
         res.redirect('/dashboard');
-    } catch (er ) {
+    } catch (er) {
         console.log(er)
     }
 });
