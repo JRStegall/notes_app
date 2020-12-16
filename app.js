@@ -3,16 +3,19 @@ const exphbs = require('express-handlebars');
 const dotenv = require('dotenv');
 const passport = require('passport');
 const session = require('express-session');
-const formatDate = require('./helpers/formatDate.js');
 const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo')(session);
 const connectDB = require('./config/db');
+const formatDate = require('./helpers/formatDate.js');
+const path = require('path');
 
 const app = express();
 const PORT = 3000;
 
 app.use(require('morgan')('dev'));
+
+app.use(express.static('public'));
 
 //BODY PARSER
 app.use(express.urlencoded({ extended: false }));
@@ -39,7 +42,7 @@ connectDB();
 app.engine('.hbs',
     exphbs({
         defaultLayout: 'main',
-        'extname': '.hbs',
+        extname: '.hbs',
         helpers: { formatDate },
     }),
 );
