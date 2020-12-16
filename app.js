@@ -3,6 +3,7 @@ const exphbs = require('express-handlebars');
 const dotenv = require('dotenv');
 const passport = require('passport');
 const session = require('express-session');
+const formatDate = require('./helpers/formatDate.js');
 const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo')(session);
@@ -35,7 +36,13 @@ dotenv.config();
 connectDB();
 
 //HANDLEBARS
-app.engine('.hbs', exphbs({ defaultLayout: 'main', 'extname': '.hbs' }));
+app.engine('.hbs',
+    exphbs({
+        defaultLayout: 'main',
+        'extname': '.hbs',
+        helpers: { formatDate },
+    }),
+);
 app.set('view engine', '.hbs');
 
 //EXPRESS SESSIONS MIDDLEWARE
