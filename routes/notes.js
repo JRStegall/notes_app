@@ -5,7 +5,7 @@ const Note = require('../models/Note');
 
 router.get('/add',ensureAuth,(req, res)=>{
     res.render('notes/add');
-})
+});
 
 router.post('/add', ensureAuth, async(req,res)=>{
     try{
@@ -15,6 +15,16 @@ router.post('/add', ensureAuth, async(req,res)=>{
     }catch(err){
         console.log(err);
     }
-})
+});
+
+router.get('./:id', async (req, res) => {
+    try {
+        const note = await Note.findById(req.params.id).lean();
+        console.log(note);
+        res.render('notes/read', { note });
+    } catch (err) {
+        console.log(err);
+    }
+});
 
 module.exports = router;
