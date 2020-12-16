@@ -3,7 +3,7 @@ const { ensureAuth } = require('../middleware/auth');
 const router = express.Router();
 const Note = require('../models/Note');
 
-router.get('/add',ensureAuth,(req, res)=>{
+router.get('/add', ensureAuth, (req, res)=>{
     res.render('notes/add');
 });
 
@@ -17,13 +17,34 @@ router.post('/add', ensureAuth, async(req,res)=>{
     }
 });
 
-router.get('./:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
     try {
         const note = await Note.findById(req.params.id).lean();
         console.log(note);
         res.render('notes/read', { note });
     } catch (err) {
         console.log(err);
+    }
+});
+
+router.get('/edit/:id', async (req, res) => {
+    try {
+        const note = await Note.findById(req.params.id).lean();
+        res.render('notes/edit', {note});
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+router.put('/:id', async (req, res) => {
+    try {
+        await Note.findOneAndUpdate(
+            { _id: req.params.id },
+            { title: req.body.title, body: req.body.body }
+        )
+        res.redirect('/dashboard');
+    } catch (er ) {
+        console.log(er)
     }
 });
 
